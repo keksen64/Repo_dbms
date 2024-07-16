@@ -1,0 +1,36 @@
+package dbms.main.dbobject;
+
+import java.util.HashMap;
+
+public class DBMS {
+    private boolean alterLock;
+    private HashMap<String, DataBase> DataBasesMap = new HashMap<>();
+
+    public synchronized boolean isAlterLock() {
+        return alterLock;
+    }
+
+    public synchronized boolean readAndSetAlterLockTrue() {
+        if(alterLock==false){
+            alterLock=true;
+            return true;
+        }
+        else return false;
+    }
+
+    public synchronized void setAlterLockFalse() {
+        alterLock=false;
+    }
+
+//    public HashMap<String, DataBase> getDataBasesMap() {
+//        return DataBasesMap;
+//    }
+    public DataBase getDataBaseByName(String key) {
+        return DataBasesMap.get(key);
+    }
+    public void putDataBaseByName(String key, DataBase d) {
+        DataBasesMap.put(key, d);
+    }
+    public Boolean isDataBaseNotUnique(String key) { return DataBasesMap.containsKey(key);
+    }
+}
